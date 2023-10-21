@@ -20,11 +20,26 @@
 %}
 
 /* definitions section */
+//十进制
 DECIMIAL ([1-9][0-9]*|0)
+//十六进制
+HEXADECIMAL (0[xX][0-9A-Fa-f]+)  
+//ID
 ID [[:alpha:]_][[:alpha:][:digit:]_]*
+//回车，换行
 EOL (\r\n|\n|\r)
+//空格
 WHITE [\t ]
 /*  Your code here (lab3). */
+//块注释
+commentbegin "/*"
+commentelement .|\n
+commentend "*/"
+/*blockcomment起始状态*/
+%x BLOCKCOMMENT  
+
+/*行注释*/
+IN_LINECOMMENT \/\/[^\n]*
 
 %%
     /* rules section */
