@@ -3,7 +3,9 @@
 #include<map>
 #include<string>
 
-class symInfo{//一条信息类
+//一条信息类
+class symInfo
+{
 public:
     int value;   //值
     int lineno;  //行号
@@ -15,7 +17,9 @@ public:
     }
 };
 
-class symTable{//符号表类
+//符号表类
+class symTable
+{
 private:
     std::map<std::string, symInfo*> table; //表
     symTable* prev;                         //前一个表
@@ -31,20 +35,25 @@ public:
 };
 
 
-symTable::symTable() {
+symTable::symTable() 
+{
     prev = nullptr;
     level = 0;
 }
 
-symTable::symTable(symTable* prev){
+symTable::symTable(symTable* prev)
+{
     this->prev=prev;
     this->level=prev->level+1;
 }
 
-symInfo* symTable::lookUp(std::string name){
+symInfo* symTable::lookUp(std::string name)
+{
     symTable* p=this;
-    while(p!=nullptr){
-        if(p->table.find(name)!=p->table.end()){
+    while(p!=nullptr)
+    {
+        if(p->table.find(name)!=p->table.end())
+        {
             return p->table[name];
         }
         p=p->prev;
@@ -52,23 +61,28 @@ symInfo* symTable::lookUp(std::string name){
     return nullptr;
 }
 
-bool symTable::installID(std::string name, symInfo* entry){
-    if(this->table.find(name)!=this->table.end()){
+bool symTable::installID(std::string name, symInfo* entry)
+{
+    if(this->table.find(name)!=this->table.end())
+    {
         return false;
     }
     table[name]=entry;
     return true;
 }
 
-bool symTable::setInfo_Val(std::string name, int value){
+bool symTable::setInfo_Val(std::string name, int value)
+{
     symInfo* entry = this->lookUp(name);
-    if(entry==nullptr){
+    if(entry==nullptr)
+    {
         return false;
     }
     entry->value=value;
     return true;
 }
 
-symTable* symTable::getPrev(){
+symTable* symTable::getPrev()
+{
     return prev;
 }
