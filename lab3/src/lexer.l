@@ -3,55 +3,83 @@
 %option noinput
 %top{
     #include <stdarg.h>
-    #include "common.h"
+    #include <string>
+    #include "common.h" 
     #include "symbol_table.h"
+    #include <iostream>
+
+    using namespace std;
 }
 %{
-    extern dump_type_t dump_type;
     extern FILE *yyin;
     extern FILE *yyout;
+
     int yycolumnno = 1;
 
-    symTable* symtable=new symTable();//符号表型的变量
+    extern dump_type_t dump_type;
 
-    inline void dump_tokens(const char* format, ...){
+    // 单词、词素、行号、列号、属性
+    inline void dump_tokens(const char* format, ...)
+    {
         va_list args;
         va_start(args, format);
         int format_length = strlen(yytext);
         if (dump_type == TOKENS)
             vfprintf(yyout, format, args);
         va_end(args);
+        
+        // printf("%d\n", format_length);
+
         yycolumnno += format_length;
     }
-
     /* Your code here, if desired (lab3). */
+    symble_stack stack;
 %}
 
 /* definitions section */
-/*十进制*/
-DECIMIAL ([1-9][0-9]*|0)
-/*八进制*/
-OCTAL [0]([1-7][0-7]*|0)
-/*十六进制*/
-HEXADECIMAL (0[xX][0-9A-Fa-f]+)  
-/*浮点数*/
-FLOATING ((([0-9]*[.][0-9]*([eE][+-]?[0-9]+)?)|([0-9]+[eE][+-]?[0-9]+))[fLlL]?)
-/*ID*/
+
+ // 数字
+digit [0-9]
+
+ // 浮点型常量
+FLOAT {digit}*\.({digit}+)?(e|E[+\-]?{digit}+)?
+
+ // 整型常量
+ //十进制
+DECIMIAL ([1-9][0-9]*|0)  
+ //八进制
+OCTAL (0[0-7]+)           
+ //十六进制
+HEXADECIMAL (0[xX][0-9A-Fa-f]+)            
+
+
+
+ // 匹配ID
 ID [[:alpha:]_][[:alpha:][:digit:]_]*
-/*回车，换行*/
-EOL (\r\n|\n|\r)
-/*空格*/
-WHITE [\t ] 
+
+ //匹配不同类型的行结束符 
+ //包括回车换行（\r\n）
+ //换行符（\n）
+ //回车符（\r）
+EOL (\r\n|\n|\r)   
+
+ //匹配空白字符，包括制表符（\t）和空格
+WHITE [\t ]     
+
 /*  Your code here (lab3). */
-/*块注释*/
-COMMENTBEGIN "/*"
-COMMENTELEMENT .|\n
-COMMENTEND "*/" 
-/*blockcomment起始状态*/
+
+ //块注释
+BLOCKCOMMENTBEGIN "/*"
+ // 匹配块注释中的任何字符或换行符
+BLOCKCOMMENTELEMENT .|\n
+ // 匹配块注释的结束标志
+BLOCKCOMMENTEND "*/"
+
+/*声明blockcomment起始状态*/
 %x BLOCKCOMMENT  
 
 /*行注释*/
-IN_LINECOMMENT \/\/[^\n]*
+LINECOMMENT \/\/[^\n]*
 
 %%
     /* rules section */
@@ -187,14 +215,15 @@ IN_LINECOMMENT \/\/[^\n]*
     dump_tokens("COMMA   \t%-10s\t%d\t%d\t\t\n", yytext, yylineno, yycolumnno);
 }
 
-{FLOATING} {
-    float temp;
-    sscanf(yytext, "%f", &temp);
-    dump_tokens("FLOAT   \t%-10s\t%d\t%d\t%f\t\n", yytext, yylineno, yycolumnno, temp);
+{FLOAT} {
+    //sscanf()会将参数str的字符串根据参数format字符串来转换并格式化数据,转换后的结果存于对应的参数内，与sprintf相对
+    float num;
+    sscanf(yytext, "%f", &num);
+    dump_tokens("FLOAT   \t%-10s\t%d\t%d\t%f\t\n", yytext, yylineno, yycolumnno ,num);
 }
 
 {DECIMIAL} {
-    int decimal; 
+    int decimal;
     decimal = atoi(yytext);
     dump_tokens("DECIMAL \t%-10s\t%d\t%d\t%f\t\n", yytext, yylineno, yycolumnno ,decimal);
 }
@@ -205,49 +234,49 @@ IN_LINECOMMENT \/\/[^\n]*
     dump_tokens("OCTAL   \t%-10s\t%d\t%d\t%f\t\n", yytext, yylineno, yycolumnno ,num);
 }
 
-
 {HEXADECIMAL} {
     int num;
     sscanf(yytext, "%x", &num);  //将16进制转为10进制数
-    dump_tokens("HEXADECIMAL\t%-10s\t%d\t%d\t%f\t\n", yytext, yylineno, yycolumnno ,num); 
+    dump_tokens("HEXADECIMAL\t%-10s\t%d\t%d\t%f\t\n", yytext, yylineno, yycolumnno ,num);
 }
 
-<*>{EOL} {              // EOL回车换行符
+{ID} {
+    string str = yytext; //yytext = 词素
+    node *p = stack.lookup(str);
+    dump_tokens("ID      \t%-10s\t%d\t%d\t%p\t\n", yytext, yylineno, yycolumnno, p);
+}
+
+
+{EOL} {
     yylineno++;
     yycolumnno = 0;
 }
 
 {WHITE} {
+    yycolumnno+=1;
+}
+
+{LINECOMMENT} {
+    dump_tokens("LINECOMMENT\t%-10s\t%d\t%d\t\t\n", yytext, yylineno, yycolumnno);
+}   //处理注释，使用定义好的独占状态BLOCKCOMMENT
+
+{BLOCKCOMMENTBEGIN} {
+    BEGIN BLOCKCOMMENT;
+    dump_tokens("BLOCKCOMMENTBEGIN\t%-10s\t%d\t%d\t\t\n", yytext, yylineno, yycolumnno);
+}
+<BLOCKCOMMENT>{BLOCKCOMMENTELEMENT} {
     yycolumnno++;
+    // dump_tokens("BLOCKCOMMENTELEMENT\t%s\n", yytext);
 }
-
-{IN_LINECOMMENT} {}   //处理注释，使用定义好的独占状态BLOCKCOMMENT
-{COMMENTBEGIN} {BEGIN BLOCKCOMMENT;}
-<BLOCKCOMMENT>{COMMENTELEMENT} {
-    if(*yytext=='\n'){
-        yylineno++;
-        offset++;
-    }
-    else{
-        offset=0;
-    }
-} 
-<BLOCKCOMMENT>{COMMENTEND} {BEGIN INITIAL;} //使用宏BEGIN来切换状态，初始状态默认为INITIAL
-
-{ID} {
-    string str = yytext; //yytext = 词素
-    node *p = symbol_table.lookup(str);
-    dump_tokens("ID      \t%-10s\t%d\t%d\t%p\t\n", yytext, yylineno, yycolumnno, p);
-
-}
-
-{EOL} yylineno++;
-
-{WHITE}
+<BLOCKCOMMENT>{BLOCKCOMMENTEND} {
+    BEGIN INITIAL;
+    dump_tokens("BLOCKCOMMENTEND\t%-10s\t%d\t%d\t\t\n", yytext, yylineno, yycolumnno);
+} //使用宏BEGIN来切换状态，初始状态默认为INITIAL 
 
     /*  Your code here (lab3). */
 %%
 /* user code section */
+
 
 char outfile[256] = "a.out";
 dump_type_t dump_type = ASM;
@@ -286,7 +315,10 @@ int main(int argc, char *argv[])
         fprintf(stderr, "%s: fail to open output file\n", outfile);
         exit(EXIT_FAILURE);
     }
+
+    // 初始化符号表（链表）
+    init_idlist();
+
     yylex();
     return 0;
 }
-

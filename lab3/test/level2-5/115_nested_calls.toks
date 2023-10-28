@@ -1,0 +1,503 @@
+INT     	int       	1	1		
+ID      	func1     	1	5	0x55678c1c13c0	
+LPAREN  	(         	1	10		
+INT     	int       	1	11		
+ID      	x         	1	15	0x55678c1c14d0	
+COMMA   	,         	1	16		
+INT     	int       	1	18		
+ID      	y         	1	22	0x55678c1c1570	
+COMMA   	,         	1	23		
+INT     	int       	1	25		
+ID      	z         	1	29	0x55678c1c1610	
+RPAREN  	)         	1	30		
+LBRACE  	{         	1	32		
+IF      	if        	2	2		
+LPAREN  	(         	2	5		
+ID      	z         	2	6	0x55678c1c1610	
+EQUAL   	==        	2	8		
+DECIMAL 	0         	2	11	0.000000	
+RPAREN  	)         	2	12		
+LBRACE  	{         	2	14		
+RETURN  	return    	3	4		
+ID      	x         	3	11	0x55678c1c14d0	
+MUL     	*         	3	13		
+ID      	y         	3	15	0x55678c1c1570	
+SEMICOLON	;         	3	16		
+RBRACE  	}         	4	2		
+ELSE    	else      	5	2		
+LBRACE  	{         	5	7		
+RETURN  	return    	6	4		
+ID      	func1     	6	11	0x55678c1c13c0	
+LPAREN  	(         	6	16		
+ID      	x         	6	17	0x55678c1c14d0	
+COMMA   	,         	6	18		
+ID      	y         	6	20	0x55678c1c1570	
+SUB     	-         	6	22		
+ID      	z         	6	24	0x55678c1c1610	
+COMMA   	,         	6	25		
+DECIMAL 	0         	6	27	0.000000	
+RPAREN  	)         	6	28		
+SEMICOLON	;         	6	29		
+RBRACE  	}         	7	2		
+RBRACE  	}         	8	0		
+INT     	int       	10	0		
+ID      	func2     	10	4	0x55678c1c16b0	
+LPAREN  	(         	10	9		
+INT     	int       	10	10		
+ID      	x         	10	14	0x55678c1c14d0	
+COMMA   	,         	10	15		
+INT     	int       	10	17		
+ID      	y         	10	21	0x55678c1c1570	
+RPAREN  	)         	10	22		
+LBRACE  	{         	10	24		
+IF      	if        	11	2		
+LPAREN  	(         	11	5		
+ID      	y         	11	6	0x55678c1c1570	
+RPAREN  	)         	11	7		
+LBRACE  	{         	11	9		
+RETURN  	return    	12	4		
+ID      	func2     	12	11	0x55678c1c16b0	
+LPAREN  	(         	12	16		
+ID      	x         	12	17	0x55678c1c14d0	
+MOD     	%         	12	19		
+ID      	y         	12	21	0x55678c1c1570	
+COMMA   	,         	12	22		
+DECIMAL 	0         	12	24	0.000000	
+RPAREN  	)         	12	25		
+SEMICOLON	;         	12	26		
+RBRACE  	}         	13	2		
+ELSE    	else      	14	2		
+LBRACE  	{         	14	7		
+RETURN  	return    	15	4		
+ID      	x         	15	11	0x55678c1c14d0	
+SEMICOLON	;         	15	12		
+RBRACE  	}         	16	2		
+RBRACE  	}         	17	0		
+INT     	int       	19	0		
+ID      	func3     	19	4	0x55678c1c1750	
+LPAREN  	(         	19	9		
+INT     	int       	19	10		
+ID      	x         	19	14	0x55678c1c14d0	
+COMMA   	,         	19	15		
+INT     	int       	19	17		
+ID      	y         	19	21	0x55678c1c1570	
+RPAREN  	)         	19	22		
+LBRACE  	{         	19	24		
+IF      	if        	20	2		
+LPAREN  	(         	20	5		
+ID      	y         	20	6	0x55678c1c1570	
+EQUAL   	==        	20	8		
+DECIMAL 	0         	20	11	0.000000	
+RPAREN  	)         	20	12		
+LBRACE  	{         	20	14		
+RETURN  	return    	21	4		
+ID      	x         	21	11	0x55678c1c14d0	
+ADD     	+         	21	13		
+DECIMAL 	1         	21	15	0.000000	
+SEMICOLON	;         	21	16		
+RBRACE  	}         	22	2		
+ELSE    	else      	23	2		
+LBRACE  	{         	23	7		
+RETURN  	return    	24	4		
+ID      	func3     	24	11	0x55678c1c1750	
+LPAREN  	(         	24	16		
+ID      	x         	24	17	0x55678c1c14d0	
+ADD     	+         	24	19		
+ID      	y         	24	21	0x55678c1c1570	
+COMMA   	,         	24	22		
+DECIMAL 	0         	24	24	0.000000	
+RPAREN  	)         	24	25		
+SEMICOLON	;         	24	26		
+RBRACE  	}         	25	2		
+RBRACE  	}         	26	0		
+INT     	int       	28	0		
+ID      	func4     	28	4	0x55678c1c17f0	
+LPAREN  	(         	28	9		
+INT     	int       	28	10		
+ID      	x         	28	14	0x55678c1c14d0	
+COMMA   	,         	28	15		
+INT     	int       	28	17		
+ID      	y         	28	21	0x55678c1c1570	
+COMMA   	,         	28	22		
+INT     	int       	28	24		
+ID      	z         	28	28	0x55678c1c1610	
+RPAREN  	)         	28	29		
+LBRACE  	{         	28	31		
+IF      	if        	29	2		
+LPAREN  	(         	29	5		
+ID      	x         	29	6	0x55678c1c14d0	
+RPAREN  	)         	29	7		
+LBRACE  	{         	29	9		
+RETURN  	return    	30	4		
+ID      	y         	30	11	0x55678c1c1570	
+SEMICOLON	;         	30	12		
+RBRACE  	}         	31	2		
+ELSE    	else      	32	2		
+LBRACE  	{         	32	7		
+RETURN  	return    	33	4		
+ID      	z         	33	11	0x55678c1c1610	
+SEMICOLON	;         	33	12		
+RBRACE  	}         	34	2		
+RBRACE  	}         	35	0		
+INT     	int       	37	0		
+ID      	func5     	37	4	0x55678c1c1890	
+LPAREN  	(         	37	9		
+INT     	int       	37	10		
+ID      	x         	37	14	0x55678c1c14d0	
+RPAREN  	)         	37	15		
+LBRACE  	{         	37	17		
+RETURN  	return    	38	2		
+SUB     	-         	38	9		
+ID      	x         	38	10	0x55678c1c14d0	
+SEMICOLON	;         	38	11		
+RBRACE  	}         	39	0		
+INT     	int       	41	0		
+ID      	func6     	41	4	0x55678c1c1930	
+LPAREN  	(         	41	9		
+INT     	int       	41	10		
+ID      	x         	41	14	0x55678c1c14d0	
+COMMA   	,         	41	15		
+INT     	int       	41	17		
+ID      	y         	41	21	0x55678c1c1570	
+RPAREN  	)         	41	22		
+LBRACE  	{         	41	24		
+IF      	if        	42	2		
+LPAREN  	(         	42	5		
+ID      	x         	42	6	0x55678c1c14d0	
+AND     	&&        	42	8		
+ID      	y         	42	11	0x55678c1c1570	
+RPAREN  	)         	42	12		
+LBRACE  	{         	42	14		
+RETURN  	return    	43	4		
+DECIMAL 	1         	43	11	0.000000	
+SEMICOLON	;         	43	12		
+RBRACE  	}         	44	2		
+ELSE    	else      	45	2		
+LBRACE  	{         	45	7		
+RETURN  	return    	46	4		
+DECIMAL 	0         	46	11	0.000000	
+SEMICOLON	;         	46	12		
+RBRACE  	}         	47	2		
+RBRACE  	}         	48	0		
+INT     	int       	50	0		
+ID      	func7     	50	4	0x55678c1c19d0	
+LPAREN  	(         	50	9		
+INT     	int       	50	10		
+ID      	x         	50	14	0x55678c1c14d0	
+RPAREN  	)         	50	15		
+LBRACE  	{         	50	17		
+IF      	if        	51	2		
+LPAREN  	(         	51	5		
+NOT     	!         	51	6		
+ID      	x         	51	7	0x55678c1c14d0	
+RPAREN  	)         	51	8		
+LBRACE  	{         	51	10		
+RETURN  	return    	52	4		
+DECIMAL 	1         	52	11	0.000000	
+SEMICOLON	;         	52	12		
+RBRACE  	}         	53	2		
+ELSE    	else      	54	2		
+LBRACE  	{         	54	7		
+RETURN  	return    	55	4		
+DECIMAL 	0         	55	11	0.000000	
+SEMICOLON	;         	55	12		
+RBRACE  	}         	56	2		
+RBRACE  	}         	57	0		
+INT     	int       	59	0		
+MAIN    	main      	59	4		
+LPAREN  	(         	59	8		
+RPAREN  	)         	59	9		
+LBRACE  	{         	59	11		
+INT     	int       	60	2		
+ID      	i1        	60	6	0x55678c1c1a70	
+ASSIGN  	=         	60	9		
+ID      	getint    	60	11	0x55678c1c1b10	
+LPAREN  	(         	60	17		
+RPAREN  	)         	60	18		
+COMMA   	,         	60	19		
+ID      	i2        	60	21	0x55678c1c1bb0	
+ASSIGN  	=         	60	24		
+ID      	getint    	60	26	0x55678c1c1b10	
+LPAREN  	(         	60	32		
+RPAREN  	)         	60	33		
+COMMA   	,         	60	34		
+ID      	i3        	60	36	0x55678c1c1c50	
+ASSIGN  	=         	60	39		
+ID      	getint    	60	41	0x55678c1c1b10	
+LPAREN  	(         	60	47		
+RPAREN  	)         	60	48		
+COMMA   	,         	60	49		
+ID      	i4        	60	51	0x55678c1c1de0	
+ASSIGN  	=         	60	54		
+ID      	getint    	60	56	0x55678c1c1b10	
+LPAREN  	(         	60	62		
+RPAREN  	)         	60	63		
+SEMICOLON	;         	60	64		
+INT     	int       	61	2		
+ID      	arr       	61	6	0x55678c1c1e80	
+LBRACKET	[         	61	9		
+DECIMAL 	10        	61	10	0.000000	
+RBRACKET	]         	61	12		
+SEMICOLON	;         	61	13		
+INT     	int       	62	2		
+ID      	i         	62	6	0x55678c1c1f20	
+ASSIGN  	=         	62	8		
+DECIMAL 	0         	62	10	0.000000	
+SEMICOLON	;         	62	11		
+WHILE   	while     	63	2		
+LPAREN  	(         	63	8		
+ID      	i         	63	9	0x55678c1c1f20	
+LESS    	<         	63	11		
+DECIMAL 	10        	63	13	0.000000	
+RPAREN  	)         	63	15		
+LBRACE  	{         	63	17		
+ID      	arr       	64	4	0x55678c1c1e80	
+LBRACKET	[         	64	7		
+ID      	i         	64	8	0x55678c1c1f20	
+RBRACKET	]         	64	9		
+ASSIGN  	=         	64	11		
+ID      	getint    	64	13	0x55678c1c1b10	
+LPAREN  	(         	64	19		
+RPAREN  	)         	64	20		
+SEMICOLON	;         	64	21		
+ID      	i         	65	4	0x55678c1c1f20	
+ASSIGN  	=         	65	6		
+ID      	i         	65	8	0x55678c1c1f20	
+ADD     	+         	65	10		
+DECIMAL 	1         	65	12	0.000000	
+SEMICOLON	;         	65	13		
+RBRACE  	}         	66	2		
+INT     	int       	67	2		
+ID      	a         	67	6	0x55678c1c1fc0	
+ASSIGN  	=         	67	8		
+ID      	func1     	67	10	0x55678c1c13c0	
+LPAREN  	(         	67	15		
+LINECOMMENT	// this   	68	6		
+ID      	func2     	69	6	0x55678c1c16b0	
+LPAREN  	(         	69	11		
+LINECOMMENT	// is     	70	10		
+ID      	func1     	71	10	0x55678c1c13c0	
+LPAREN  	(         	71	15		
+LINECOMMENT	// comment	72	14		
+ID      	func3     	73	14	0x55678c1c1750	
+LPAREN  	(         	73	19		
+ID      	func4     	73	20	0x55678c1c17f0	
+LPAREN  	(         	73	25		
+ID      	func5     	73	26	0x55678c1c1890	
+LPAREN  	(         	73	31		
+ID      	func3     	73	32	0x55678c1c1750	
+LPAREN  	(         	73	37		
+ID      	func2     	73	38	0x55678c1c16b0	
+LPAREN  	(         	73	43		
+ID      	func6     	73	44	0x55678c1c1930	
+LPAREN  	(         	73	49		
+ID      	func7     	73	50	0x55678c1c19d0	
+LPAREN  	(         	73	55		
+ID      	i1        	73	56	0x55678c1c1a70	
+RPAREN  	)         	73	58		
+COMMA   	,         	73	59		
+ID      	func5     	73	61	0x55678c1c1890	
+LPAREN  	(         	73	66		
+ID      	i2        	73	67	0x55678c1c1bb0	
+RPAREN  	)         	73	69		
+RPAREN  	)         	73	70		
+COMMA   	,         	73	71		
+ID      	i3        	73	73	0x55678c1c1c50	
+RPAREN  	)         	73	75		
+COMMA   	,         	73	76		
+LINECOMMENT	// this   	74	38		
+ID      	i4        	75	38	0x55678c1c1de0	
+RPAREN  	)         	75	40		
+RPAREN  	)         	75	41		
+COMMA   	,         	75	42		
+LINECOMMENT	// is     	76	26		
+ID      	arr       	77	26	0x55678c1c1e80	
+LBRACKET	[         	77	29		
+DECIMAL 	0         	77	30	0.000000	
+RBRACKET	]         	77	31		
+COMMA   	,         	77	32		
+LINECOMMENT	// function	78	26		
+ID      	func1     	79	26	0x55678c1c13c0	
+LPAREN  	(         	79	31		
+ID      	func2     	79	32	0x55678c1c16b0	
+LPAREN  	(         	79	37		
+ID      	func3     	79	38	0x55678c1c1750	
+LPAREN  	(         	79	43		
+ID      	func4     	79	44	0x55678c1c17f0	
+LPAREN  	(         	79	49		
+ID      	func5     	79	50	0x55678c1c1890	
+LPAREN  	(         	79	55		
+ID      	arr       	79	56	0x55678c1c1e80	
+LBRACKET	[         	79	59		
+DECIMAL 	1         	79	60	0.000000	
+RBRACKET	]         	79	61		
+RPAREN  	)         	79	62		
+COMMA   	,         	79	63		
+LINECOMMENT	// call   	80	50		
+ID      	func6     	81	50	0x55678c1c1930	
+LPAREN  	(         	81	55		
+ID      	arr       	81	56	0x55678c1c1e80	
+LBRACKET	[         	81	59		
+DECIMAL 	2         	81	60	0.000000	
+RBRACKET	]         	81	61		
+COMMA   	,         	81	62		
+ID      	func7     	81	64	0x55678c1c19d0	
+LPAREN  	(         	81	69		
+ID      	arr       	81	70	0x55678c1c1e80	
+LBRACKET	[         	81	73		
+DECIMAL 	3         	81	74	0.000000	
+RBRACKET	]         	81	75		
+RPAREN  	)         	81	76		
+RPAREN  	)         	81	77		
+COMMA   	,         	81	78		
+ID      	func2     	82	50	0x55678c1c16b0	
+LPAREN  	(         	82	55		
+ID      	arr       	82	56	0x55678c1c1e80	
+LBRACKET	[         	82	59		
+DECIMAL 	4         	82	60	0.000000	
+RBRACKET	]         	82	61		
+COMMA   	,         	82	62		
+ID      	func7     	82	64	0x55678c1c19d0	
+LPAREN  	(         	82	69		
+ID      	arr       	82	70	0x55678c1c1e80	
+LBRACKET	[         	82	73		
+DECIMAL 	5         	82	74	0.000000	
+RBRACKET	]         	82	75		
+RPAREN  	)         	82	76		
+RPAREN  	)         	82	77		
+RPAREN  	)         	82	78		
+COMMA   	,         	82	79		
+ID      	arr       	83	44	0x55678c1c1e80	
+LBRACKET	[         	83	47		
+DECIMAL 	6         	83	48	0.000000	
+RBRACKET	]         	83	49		
+RPAREN  	)         	83	50		
+COMMA   	,         	83	51		
+ID      	arr       	84	38	0x55678c1c1e80	
+LBRACKET	[         	84	41		
+DECIMAL 	7         	84	42	0.000000	
+RBRACKET	]         	84	43		
+RPAREN  	)         	84	44		
+COMMA   	,         	84	45		
+ID      	func3     	85	32	0x55678c1c1750	
+LPAREN  	(         	85	37		
+ID      	arr       	85	38	0x55678c1c1e80	
+LBRACKET	[         	85	41		
+DECIMAL 	8         	85	42	0.000000	
+RBRACKET	]         	85	43		
+COMMA   	,         	85	44		
+ID      	func7     	85	46	0x55678c1c19d0	
+LPAREN  	(         	85	51		
+ID      	arr       	85	52	0x55678c1c1e80	
+LBRACKET	[         	85	55		
+DECIMAL 	9         	85	56	0.000000	
+RBRACKET	]         	85	57		
+RPAREN  	)         	85	58		
+RPAREN  	)         	85	59		
+COMMA   	,         	85	60		
+ID      	i1        	85	62	0x55678c1c1a70	
+RPAREN  	)         	85	64		
+RPAREN  	)         	85	65		
+COMMA   	,         	85	66		
+ID      	func2     	86	20	0x55678c1c16b0	
+LPAREN  	(         	86	25		
+ID      	i2        	86	26	0x55678c1c1bb0	
+COMMA   	,         	86	28		
+ID      	func3     	86	30	0x55678c1c1750	
+LPAREN  	(         	86	35		
+ID      	func7     	86	36	0x55678c1c19d0	
+LPAREN  	(         	86	41		
+ID      	i3        	86	42	0x55678c1c1c50	
+RPAREN  	)         	86	44		
+COMMA   	,         	86	45		
+ID      	i4        	86	47	0x55678c1c1de0	
+RPAREN  	)         	86	49		
+RPAREN  	)         	86	50		
+RPAREN  	)         	86	51		
+COMMA   	,         	86	52		
+ID      	arr       	87	14	0x55678c1c1e80	
+LBRACKET	[         	87	17		
+DECIMAL 	0         	87	18	0.000000	
+RBRACKET	]         	87	19		
+COMMA   	,         	87	20		
+ID      	arr       	87	22	0x55678c1c1e80	
+LBRACKET	[         	87	25		
+DECIMAL 	1         	87	26	0.000000	
+RBRACKET	]         	87	27		
+RPAREN  	)         	87	28		
+COMMA   	,         	87	29		
+ID      	arr       	88	10	0x55678c1c1e80	
+LBRACKET	[         	88	13		
+DECIMAL 	2         	88	14	0.000000	
+RBRACKET	]         	88	15		
+RPAREN  	)         	88	16		
+COMMA   	,         	88	17		
+ID      	arr       	89	6	0x55678c1c1e80	
+LBRACKET	[         	89	9		
+DECIMAL 	3         	89	10	0.000000	
+RBRACKET	]         	89	11		
+COMMA   	,         	89	12		
+ID      	func3     	90	6	0x55678c1c1750	
+LPAREN  	(         	90	11		
+ID      	func2     	90	12	0x55678c1c16b0	
+LPAREN  	(         	90	17		
+ID      	func1     	90	18	0x55678c1c13c0	
+LPAREN  	(         	90	23		
+ID      	func2     	90	24	0x55678c1c16b0	
+LPAREN  	(         	90	29		
+ID      	func3     	90	30	0x55678c1c1750	
+LPAREN  	(         	90	35		
+ID      	arr       	90	36	0x55678c1c1e80	
+LBRACKET	[         	90	39		
+DECIMAL 	4         	90	40	0.000000	
+RBRACKET	]         	90	41		
+COMMA   	,         	90	42		
+ID      	func5     	90	44	0x55678c1c1890	
+LPAREN  	(         	90	49		
+ID      	arr       	90	50	0x55678c1c1e80	
+LBRACKET	[         	90	53		
+DECIMAL 	5         	90	54	0.000000	
+RBRACKET	]         	90	55		
+RPAREN  	)         	90	56		
+RPAREN  	)         	90	57		
+COMMA   	,         	90	58		
+ID      	func5     	90	60	0x55678c1c1890	
+LPAREN  	(         	90	65		
+ID      	arr       	90	66	0x55678c1c1e80	
+LBRACKET	[         	90	69		
+DECIMAL 	6         	90	70	0.000000	
+RBRACKET	]         	90	71		
+RPAREN  	)         	90	72		
+RPAREN  	)         	90	73		
+COMMA   	,         	90	74		
+ID      	arr       	91	24	0x55678c1c1e80	
+LBRACKET	[         	91	27		
+DECIMAL 	7         	91	28	0.000000	
+RBRACKET	]         	91	29		
+COMMA   	,         	91	30		
+ID      	func7     	91	32	0x55678c1c19d0	
+LPAREN  	(         	91	37		
+ID      	arr       	91	38	0x55678c1c1e80	
+LBRACKET	[         	91	41		
+DECIMAL 	8         	91	42	0.000000	
+RBRACKET	]         	91	43		
+RPAREN  	)         	91	44		
+RPAREN  	)         	91	45		
+COMMA   	,         	91	46		
+ID      	func5     	92	18	0x55678c1c1890	
+LPAREN  	(         	92	23		
+ID      	arr       	92	24	0x55678c1c1e80	
+LBRACKET	[         	92	27		
+DECIMAL 	9         	92	28	0.000000	
+RBRACKET	]         	92	29		
+RPAREN  	)         	92	30		
+RPAREN  	)         	92	31		
+COMMA   	,         	92	32		
+ID      	i1        	93	12	0x55678c1c1a70	
+RPAREN  	)         	93	14		
+RPAREN  	)         	93	15		
+SEMICOLON	;         	93	16		
+RETURN  	return    	94	2		
+ID      	a         	94	9	0x55678c1c1fc0	
+SEMICOLON	;         	94	10		
+RBRACE  	}         	95	0		

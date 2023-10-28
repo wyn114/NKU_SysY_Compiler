@@ -1,88 +1,161 @@
-//符号表头文件
-#include<iostream>
-#include<map>
-#include<string>
+#include <ostream>
+#include <fstream>
+#include <malloc.h>
+#include <unordered_map>
+#include <string>
+#include <cstring>
+using namespace std;
 
-//一条信息类
-class symInfo
+// 链表形式组织符号表（此处符号表只记录ID）
+// 链表节点
+struct node
 {
-public:
-    int value;   //值
-    int lineno;  //行号
-    int offset;  //偏移量
-    symInfo(int value, int lineno, int offset){
-        this->value = value;
-        this->lineno = lineno;
-        this->offset = offset;
-    }
+    char name[64];
+    node *prev, *next;
 };
 
-//符号表类
-class symTable
+// 链表
+struct id_list
+{
+    node *head, *tail;
+    int count;
+};
+
+id_list idlist;
+
+// 初始化符号表链表
+void init_idlist()
+{
+    idlist.head = (node *)malloc(sizeof(node));
+    idlist.head->next = idlist.head->prev = nullptr;
+    idlist.tail = idlist.head;
+    idlist.count = 0;
+}
+
+// 链表中添加元素
+node *add(char *s)
+{
+    node *id_elem = nullptr;
+    id_elem = (node *)malloc(sizeof(node));
+    strcpy(id_elem->name, s);
+
+    idlist.tail->next = id_elem;
+    id_elem->prev = idlist.tail;
+    id_elem->next = nullptr;
+    idlist.tail = id_elem;
+
+    idlist.count++;
+    return id_elem;
+}
+
+
+// 自定义stack_element类（符号栈中元素）
+/*
+每个栈元素stack_element会持有一个指向前一元素的指针pre和一个map
+map是无序的，存储的是当前这个{}范围下所有的映射对：<标识符名，对应符号表表项的地址>
+*/
+class stack_element
 {
 private:
-    std::map<std::string, symInfo*> table; //表
-    symTable* prev;                         //前一个表
-    int level;                              //作用域级
+    unordered_map<string, node *> map;
+    stack_element *prev;
 
 public:
-    symTable();
-    symTable(symTable* prev);
-    bool installID(std::string name, symInfo* entry);//插入一条
-    symInfo* lookUp(std::string name);        //查询一条
-    bool setInfo_Val(std::string name, int value);  //设置一条的值
-    symTable* getPrev();     //返回前一个表
+    // 初始化空的符号栈的首元素
+    stack_element()
+    {
+        prev = nullptr;
+    }
+
+    // 往符号栈里压元素，新压入元素的pre自然就是低他一层的元素
+    stack_element(stack_element *back)
+    {
+        prev = back;
+    }
+
+    void add_into_map(string name, node *id)
+    {
+        map[name] = id;
+    }
+
+    stack_element *get_prev()
+    {
+        return prev;
+    }
+
+    node *get_identifier(string name)
+    {
+        if (map.empty())
+        {
+            return nullptr;
+        }
+        if (map.find(name) != map.end())
+        {
+            return map[name];
+        }
+        else
+        {
+            return nullptr;
+        }
+    }
+
+    // 析构函数
+    ~stack_element()
+    {
+        prev = nullptr;
+        unordered_map<string, node *>().swap(map);
+        malloc_trim(0);
+    }
 };
 
 
-symTable::symTable() 
+// symble_stack 类，识别到标识符将其存入符号栈中，最后再一次性输出
+class symble_stack : public stack_element
 {
-    prev = nullptr;
-    level = 0;
-}
+private:
+    // 栈的顶部
+    stack_element *top;
 
-symTable::symTable(symTable* prev)
-{
-    this->prev=prev;
-    this->level=prev->level+1;
-}
-
-symInfo* symTable::lookUp(std::string name)
-{
-    symTable* p=this;
-    while(p!=nullptr)
+public:
+    // 初始化，之所以要初始化一个top表项，是为了存储全局标识符，这些标识符没有{}标识
+    symble_stack()
     {
-        if(p->table.find(name)!=p->table.end())
+        stack_element *t = new stack_element();
+        top = t;
+    }
+
+    // 添加标识符
+    void add_map(string name, node *id)
+    {
+        top->add_into_map(name, id);
+    }
+
+    // 查找符号栈中是否曾出现过同样的标识符
+    node *lookup(string name)
+    {
+        // 1. 未出现：创建一个新的idlist_entry，并添加到top指针指向的map中，然后返回idlist_entry的地址
+        // 2. 已出现：返回对应的idlist_entry地址
+
+        node *p_entry = nullptr;
+
+        // 搜索：从栈顶依次向下搜索,因为{}可能层层嵌套
+        stack_element *p;
+        p = top;
+        do
         {
-            return p->table[name];
-        }
-        p=p->prev;
-    }
-    return nullptr;
-}
+            p_entry = p->get_identifier(name);
+            if (p_entry)
+            {
+                // p_entry不为空，意味着已经找到了
+                return p_entry;
+            }
+            // p_entry为空，意味着还没找到，继续向下搜索
+            p = p->get_prev();
+        } while (p);
 
-bool symTable::installID(std::string name, symInfo* entry)
-{
-    if(this->table.find(name)!=this->table.end())
-    {
-        return false;
+        // 搜索不到，于是这是一个新的标识符
+        p_entry = add((char *)name.c_str());
+        top->add_into_map(name, p_entry);
+        return p_entry;
     }
-    table[name]=entry;
-    return true;
-}
-
-bool symTable::setInfo_Val(std::string name, int value)
-{
-    symInfo* entry = this->lookUp(name);
-    if(entry==nullptr)
-    {
-        return false;
-    }
-    entry->value=value;
-    return true;
-}
-
-symTable* symTable::getPrev()
-{
-    return prev;
-}
+};
