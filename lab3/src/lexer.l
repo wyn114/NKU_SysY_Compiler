@@ -7,6 +7,11 @@
     #include "common.h" 
     #include "symbol_table.h"
     #include <iostream>
+    #include <ostream>
+    #include <fstream>
+    #include <malloc.h>
+    #include <unordered_map>
+    #include <cstring>
 
     using namespace std;
 }
@@ -33,7 +38,8 @@
         yycolumnno += format_length;
     }
     /* Your code here, if desired (lab3). */
-    symble_stack stack;
+    
+    symble_stack m_stack;
 %}
 
 /* definitions section */
@@ -84,6 +90,7 @@ LINECOMMENT \/\/[^\n]*
 %%
     /* rules section */
 "int" {
+    if_New = 1;
     dump_tokens("INT     \t%-10s\t%d\t%d\t\t\n", yytext, yylineno, yycolumnno);
 }
 
@@ -92,10 +99,12 @@ LINECOMMENT \/\/[^\n]*
 }
 
 "float" {
+    if_New = 1;
     dump_tokens("FLOAT   \t%-10s\t%d\t%d\t\t\n", yytext, yylineno, yycolumnno);
 }
 
 "double" {
+    if_New = 1;
     dump_tokens("DOUBLE  \t%-10s\t%d\t%d\t\t\n", yytext, yylineno, yycolumnno);
 }
 
@@ -196,10 +205,12 @@ LINECOMMENT \/\/[^\n]*
 }
 
 "{" {
+    m_stack.push();
     dump_tokens("LBRACE  \t%-10s\t%d\t%d\t\t\n", yytext, yylineno, yycolumnno);
 }
 
 "}" {
+    m_stack.pop();
     dump_tokens("RBRACE  \t%-10s\t%d\t%d\t\t\n", yytext, yylineno, yycolumnno);
 }
 
@@ -242,7 +253,8 @@ LINECOMMENT \/\/[^\n]*
 
 {ID} {
     string str = yytext; //yytext = 词素
-    node *p = stack.lookup(str);
+    node *p = m_stack.lookup(str);
+    if_New = 0;
     dump_tokens("ID      \t%-10s\t%d\t%d\t%p\t\n", yytext, yylineno, yycolumnno, p);
 }
 

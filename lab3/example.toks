@@ -1,15 +1,16 @@
 INT     	int       	1	1		
-ID      	a         	1	5	0x5629f23423c0	
+ID      	a         	1	5	0x556d5349f3b0	
 SEMICOLON	;         	1	6		
+LINECOMMENT	//nihao   	2	0		
 INT     	int       	3	0		
 MAIN    	main      	3	4		
 LPAREN  	(         	3	8		
 RPAREN  	)         	3	9		
 LBRACE  	{         	4	0		
 INT     	int       	5	4		
-ID      	a         	5	8	0x5629f23423c0	
+ID      	a         	5	8	0x556d5349f910	
 SEMICOLON	;         	5	9		
-ID      	a         	6	4	0x5629f23423c0	
+ID      	a         	6	4	0x556d5349f910	
 ASSIGN  	=         	6	6		
 DECIMAL 	1         	6	8	0.000000	
 ADD     	+         	6	10		
@@ -17,7 +18,7 @@ DECIMAL 	2         	6	12	0.000000
 SEMICOLON	;         	6	13		
 IF      	if        	7	4		
 LPAREN  	(         	7	6		
-ID      	a         	7	7	0x5629f23423c0	
+ID      	a         	7	7	0x556d5349f910	
 LESS    	<         	7	9		
 DECIMAL 	5         	7	11	0.000000	
 RPAREN  	)         	7	12		

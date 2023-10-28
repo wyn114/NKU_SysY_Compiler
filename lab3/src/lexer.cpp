@@ -4,10 +4,15 @@
     #include "common.h" 
     #include "symbol_table.h"
     #include <iostream>
+    #include <ostream>
+    #include <fstream>
+    #include <malloc.h>
+    #include <unordered_map>
+    #include <cstring>
 
     using namespace std;
 
-#line 11 "src/lexer.cpp"
+#line 16 "src/lexer.cpp"
 
 #define  YY_INT_ALIGNED short int
 
@@ -535,7 +540,7 @@ char *yytext;
 #line 1 "src/lexer.l"
 #define YY_NO_INPUT 1
 
-#line 14 "src/lexer.l"
+#line 19 "src/lexer.l"
     extern FILE *yyin;
     extern FILE *yyout;
 
@@ -558,10 +563,11 @@ char *yytext;
         yycolumnno += format_length;
     }
     /* Your code here, if desired (lab3). */
-    symble_stack stack;
-#line 563 "src/lexer.cpp"
+    
+    symble_stack m_stack;
+#line 569 "src/lexer.cpp"
 /* definitions section */
-#line 42 "src/lexer.l"
+#line 48 "src/lexer.l"
  // 数字
  // 浮点型常量
  // 整型常量
@@ -581,7 +587,7 @@ char *yytext;
 /*声明blockcomment起始状态*/
   
 /*行注释*/
-#line 585 "src/lexer.cpp"
+#line 591 "src/lexer.cpp"
 
 #define INITIAL 0
 #define BLOCKCOMMENT 1
@@ -797,10 +803,10 @@ YY_DECL
 		}
 
 	{
-#line 85 "src/lexer.l"
+#line 91 "src/lexer.l"
 
     /* rules section */
-#line 804 "src/lexer.cpp"
+#line 810 "src/lexer.cpp"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -859,238 +865,243 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 87 "src/lexer.l"
+#line 93 "src/lexer.l"
 {
+    if_New = 1;
     dump_tokens("INT     \t%-10s\t%d\t%d\t\t\n", yytext, yylineno, yycolumnno);
 }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 91 "src/lexer.l"
+#line 98 "src/lexer.l"
 {
     dump_tokens("MAIN    \t%-10s\t%d\t%d\t\t\n", yytext, yylineno, yycolumnno);
 }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 95 "src/lexer.l"
+#line 102 "src/lexer.l"
 {
+    if_New = 1;
     dump_tokens("FLOAT   \t%-10s\t%d\t%d\t\t\n", yytext, yylineno, yycolumnno);
 }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 99 "src/lexer.l"
+#line 107 "src/lexer.l"
 {
+    if_New = 1;
     dump_tokens("DOUBLE  \t%-10s\t%d\t%d\t\t\n", yytext, yylineno, yycolumnno);
 }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 103 "src/lexer.l"
+#line 112 "src/lexer.l"
 {
     dump_tokens("VOID    \t%-10s\t%d\t%d\t\t\n", yytext, yylineno, yycolumnno);
 }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 107 "src/lexer.l"
+#line 116 "src/lexer.l"
 {
     dump_tokens("IF      \t%-10s\t%d\t%d\t\t\n", yytext, yylineno, yycolumnno);
 }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 111 "src/lexer.l"
+#line 120 "src/lexer.l"
 {
     dump_tokens("ELSE    \t%-10s\t%d\t%d\t\t\n", yytext, yylineno, yycolumnno);
 }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 115 "src/lexer.l"
+#line 124 "src/lexer.l"
 {
     dump_tokens("WHILE   \t%-10s\t%d\t%d\t\t\n", yytext, yylineno, yycolumnno);
 }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 119 "src/lexer.l"
+#line 128 "src/lexer.l"
 {
     dump_tokens("BREAK   \t%-10s\t%d\t%d\t\t\n", yytext, yylineno, yycolumnno);
 }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 123 "src/lexer.l"
+#line 132 "src/lexer.l"
 {
     dump_tokens("CONTINUE\t%-10s\t%d\t%d\t\t\n", yytext, yylineno, yycolumnno);
 }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 127 "src/lexer.l"
+#line 136 "src/lexer.l"
 {
     dump_tokens("RETURN  \t%-10s\t%d\t%d\t\t\n", yytext, yylineno, yycolumnno);
 }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 131 "src/lexer.l"
+#line 140 "src/lexer.l"
 {
     dump_tokens("EQUAL   \t%-10s\t%d\t%d\t\t\n", yytext, yylineno, yycolumnno);
 }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 135 "src/lexer.l"
+#line 144 "src/lexer.l"
 {
     dump_tokens("ASSIGN  \t%-10s\t%d\t%d\t\t\n", yytext, yylineno, yycolumnno);
 }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 139 "src/lexer.l"
+#line 148 "src/lexer.l"
 {
     dump_tokens("LESSEQUAL\t%-10s\t%d\t%d\t\t\n", yytext, yylineno, yycolumnno);
 }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 143 "src/lexer.l"
+#line 152 "src/lexer.l"
 {
     dump_tokens("GREATEREQUAL\t%-10s\t%d\t%d\t\t\n", yytext, yylineno, yycolumnno);
 }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 147 "src/lexer.l"
+#line 156 "src/lexer.l"
 {
     dump_tokens("LESS    \t%-10s\t%d\t%d\t\t\n", yytext, yylineno, yycolumnno);
 }
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 151 "src/lexer.l"
+#line 160 "src/lexer.l"
 {
     dump_tokens("GREATER \t%-10s\t%d\t%d\t\t\n", yytext, yylineno, yycolumnno);
 }
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 155 "src/lexer.l"
+#line 164 "src/lexer.l"
 {
     dump_tokens("ADD     \t%-10s\t%d\t%d\t\t\n", yytext, yylineno, yycolumnno);
 }
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 159 "src/lexer.l"
+#line 168 "src/lexer.l"
 {
     dump_tokens("SUB     \t%-10s\t%d\t%d\t\t\n", yytext, yylineno, yycolumnno);
 }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 163 "src/lexer.l"
+#line 172 "src/lexer.l"
 {
     dump_tokens("MUL     \t%-10s\t%d\t%d\t\t\n", yytext, yylineno, yycolumnno);
 }
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 167 "src/lexer.l"
+#line 176 "src/lexer.l"
 {
     dump_tokens("DIV     \t%-10s\t%d\t%d\t\t\n", yytext, yylineno, yycolumnno);
 }
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 171 "src/lexer.l"
+#line 180 "src/lexer.l"
 {
     dump_tokens("MOD     \t%-10s\t%d\t%d\t\t\n", yytext, yylineno, yycolumnno);
 }
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 175 "src/lexer.l"
+#line 184 "src/lexer.l"
 {
     dump_tokens("NOT     \t%-10s\t%d\t%d\t\t\n", yytext, yylineno, yycolumnno);
 }
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 179 "src/lexer.l"
+#line 188 "src/lexer.l"
 {
     dump_tokens("OR      \t%-10s\t%d\t%d\t\t\n", yytext, yylineno, yycolumnno);
 }
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 183 "src/lexer.l"
+#line 192 "src/lexer.l"
 {
     dump_tokens("AND     \t%-10s\t%d\t%d\t\t\n", yytext, yylineno, yycolumnno);
 }
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 187 "src/lexer.l"
+#line 196 "src/lexer.l"
 {
     dump_tokens("SEMICOLON\t%-10s\t%d\t%d\t\t\n", yytext, yylineno, yycolumnno);
 }
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 191 "src/lexer.l"
+#line 200 "src/lexer.l"
 {
     dump_tokens("LPAREN  \t%-10s\t%d\t%d\t\t\n", yytext, yylineno, yycolumnno);
 }
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 195 "src/lexer.l"
+#line 204 "src/lexer.l"
 {
     dump_tokens("RPAREN  \t%-10s\t%d\t%d\t\t\n", yytext, yylineno, yycolumnno);
 }
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 199 "src/lexer.l"
+#line 208 "src/lexer.l"
 {
+    m_stack.push();
     dump_tokens("LBRACE  \t%-10s\t%d\t%d\t\t\n", yytext, yylineno, yycolumnno);
 }
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 203 "src/lexer.l"
+#line 213 "src/lexer.l"
 {
+    m_stack.pop();
     dump_tokens("RBRACE  \t%-10s\t%d\t%d\t\t\n", yytext, yylineno, yycolumnno);
 }
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 207 "src/lexer.l"
+#line 218 "src/lexer.l"
 {
     dump_tokens("LBRACKET\t%-10s\t%d\t%d\t\t\n", yytext, yylineno, yycolumnno);
 }
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 211 "src/lexer.l"
+#line 222 "src/lexer.l"
 {
     dump_tokens("RBRACKET\t%-10s\t%d\t%d\t\t\n", yytext, yylineno, yycolumnno);
 }
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 215 "src/lexer.l"
+#line 226 "src/lexer.l"
 {
     dump_tokens("COMMA   \t%-10s\t%d\t%d\t\t\n", yytext, yylineno, yycolumnno);
 }
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 219 "src/lexer.l"
+#line 230 "src/lexer.l"
 {
     //sscanf()会将参数str的字符串根据参数format字符串来转换并格式化数据,转换后的结果存于对应的参数内，与sprintf相对
     float num;
@@ -1100,7 +1111,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 226 "src/lexer.l"
+#line 237 "src/lexer.l"
 {
     int decimal;
     decimal = atoi(yytext);
@@ -1109,7 +1120,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 232 "src/lexer.l"
+#line 243 "src/lexer.l"
 {
     int num;
     sscanf(yytext, "%o", &num);  //将8进制转为10进制数
@@ -1118,7 +1129,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 238 "src/lexer.l"
+#line 249 "src/lexer.l"
 {
     int num;
     sscanf(yytext, "%x", &num);  //将16进制转为10进制数
@@ -1127,17 +1138,18 @@ YY_RULE_SETUP
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 244 "src/lexer.l"
+#line 255 "src/lexer.l"
 {
     string str = yytext; //yytext = 词素
-    node *p = stack.lookup(str);
+    node *p = m_stack.lookup(str);
+    if_New = 0;
     dump_tokens("ID      \t%-10s\t%d\t%d\t%p\t\n", yytext, yylineno, yycolumnno, p);
 }
 	YY_BREAK
 case 39:
 /* rule 39 can match eol */
 YY_RULE_SETUP
-#line 251 "src/lexer.l"
+#line 263 "src/lexer.l"
 {
     yylineno++;
     yycolumnno = 0;
@@ -1145,21 +1157,21 @@ YY_RULE_SETUP
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 256 "src/lexer.l"
+#line 268 "src/lexer.l"
 {
     yycolumnno+=1;
 }
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 260 "src/lexer.l"
+#line 272 "src/lexer.l"
 {
     dump_tokens("LINECOMMENT\t%-10s\t%d\t%d\t\t\n", yytext, yylineno, yycolumnno);
 }   //处理注释，使用定义好的独占状态BLOCKCOMMENT
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
-#line 264 "src/lexer.l"
+#line 276 "src/lexer.l"
 {
     BEGIN BLOCKCOMMENT;
     dump_tokens("BLOCKCOMMENTBEGIN\t%-10s\t%d\t%d\t\t\n", yytext, yylineno, yycolumnno);
@@ -1168,7 +1180,7 @@ YY_RULE_SETUP
 case 43:
 /* rule 43 can match eol */
 YY_RULE_SETUP
-#line 268 "src/lexer.l"
+#line 280 "src/lexer.l"
 {
     yycolumnno++;
     // dump_tokens("BLOCKCOMMENTELEMENT\t%s\n", yytext);
@@ -1176,7 +1188,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
-#line 272 "src/lexer.l"
+#line 284 "src/lexer.l"
 {
     BEGIN INITIAL;
     dump_tokens("BLOCKCOMMENTEND\t%-10s\t%d\t%d\t\t\n", yytext, yylineno, yycolumnno);
@@ -1185,10 +1197,10 @@ YY_RULE_SETUP
 /*  Your code here (lab3). */
 case 45:
 YY_RULE_SETUP
-#line 278 "src/lexer.l"
+#line 290 "src/lexer.l"
 ECHO;
 	YY_BREAK
-#line 1192 "src/lexer.cpp"
+#line 1204 "src/lexer.cpp"
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(BLOCKCOMMENT):
 	yyterminate();
@@ -2157,7 +2169,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 278 "src/lexer.l"
+#line 290 "src/lexer.l"
 
 /* user code section */
 
